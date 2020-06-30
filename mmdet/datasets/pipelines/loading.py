@@ -56,8 +56,10 @@ class LoadImageFromFile(object):
         else:
             filename = results['img_info']['filename']
 
-        if self.file_client.get(filename) :
+        try:
             img_bytes = self.file_client.get(filename)
+        except:
+            print("RIP")
         img = mmcv.imfrombytes(img_bytes, flag=self.color_type)
         if self.to_float32:
             img = img.astype(np.float32)
